@@ -1,4 +1,4 @@
-﻿using BepInEx;
+using BepInEx;
 using BepInEx.Configuration;
 using HarmonyLib;
 using System;
@@ -35,8 +35,6 @@ namespace UltraRandomizer
             else if (player != null && objectsDatabase == null)
             {
                 objectsDatabase = (SpawnableObjectsDatabase)GetInstanceField(typeof(SpawnMenu), player.transform.GetChild(10).GetChild(21).gameObject.GetComponent<SpawnMenu>(), "objects");
-                objectsDatabase.enemies.Where(e => e != objectsDatabase.enemies[8]);
-                objectsDatabase.enemies.Where(e => e != objectsDatabase.enemies[16]);
                 foreach (var x in objectsDatabase.enemies)
                 {
                     x.objectName += " mod";
@@ -60,28 +58,29 @@ namespace UltraRandomizer
                         switch (difficulty.Value)
                         {
                             case 1:
-                                arr = new int[] { 0, 1, 2, 3, 8, 21 };
+                                arr = new int[] { 0, 1, 2, 3, 21 };
                                 rInt = arr[r.Next(arr.Length)];
                             break;
                             case 2:
-                                arr = new int[] { 0, 1, 2, 3, 4, 8, 9, 14, 21};
+                                arr = new int[] { 0, 1, 2, 3, 4, 9, 14, 21};
                                 rInt = arr[r.Next(arr.Length)];
                             break;
                             case 3:
-                                arr = new int[] { 0, 1, 2, 3, 4, 8, 9, 14, 15, 17, 21};
+                                arr = new int[] { 0, 1, 2, 3, 4, 9, 14, 15, 21};
                                 rInt = arr[r.Next(arr.Length)];
                             break;
                             case 4:
-                                arr = new int[] { 0, 1, 2, 3, 4, 8, 9, 14, 15, 16, 17, 19, 21, 22 };
+                                arr = new int[] { 0, 1, 2, 3, 4, 9, 14, 15, 16, 19, 21, 22 };
                                 rInt = arr[r.Next(arr.Length)];
                             break;
                             case 5:
-                                arr = new int[] { 0, 1, 2, 3, 4, 5, 6, 8, 9, 14, 15, 16, 17, 18, 19, 21, 22 };
+                                arr = new int[] { 0, 1, 2, 3, 4, 5, 6, 9, 14, 15, 16, 18, 19, 21, 22 };
                                 rInt = arr[r.Next(arr.Length)];
                             break;
                             case 6:
-                                rInt = r.Next(objectsDatabase.enemies.Length);
-                            break;
+                                arr = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 24, 25 };
+                                rInt = arr[r.Next(arr.Length)];
+                                break;
 
                         }
 
