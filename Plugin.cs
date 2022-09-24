@@ -1,4 +1,4 @@
-using BepInEx;
+﻿using BepInEx;
 using BepInEx.Configuration;
 using HarmonyLib;
 using System;
@@ -8,26 +8,51 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using UMM;
+using UMM.HarmonyPatches;
+using System.IO;
+using Newtonsoft.Json;
+using System.Runtime.InteropServices;
+using System.Text;
 
 namespace UltraRandomizer
 {
-    //[UKPlugin("UltraRandomizer", "Enemy Randomizer for ULTRAKILL", "1.0.0",false,false)]
-    [BepInPlugin("radsi.ultrarandomizer", "UltraRandomizer", "1.0.0")]
-    public class UltraRandomizer : BaseUnityPlugin
+    [UKPlugin("UltraRandomizer", "Enemy Randomizer for ULTRAKILL", "1.0.0", false, false)]
+
+    public class UltraRandomizer : UKMod
     {
         GameObject player;
 
         SpawnableObjectsDatabase objectsDatabase;
 
-        ConfigEntry<int> difficulty;
+        int difficulty;
 
         SpawnableObject newEnemy;
         public List<GameObject> ToDestroyThisFrame = new List<GameObject>();
 
         DifficultiesHandler difficultyHandler;
 
-        private void Start()
+        public override void OnModLoaded()
         {
+            string configFilePath = AppDomain.CurrentDomain.BaseDirectory + @"\BepInEx\config\radsi.ultrarandomizer.cfg";
+            Debug.Log(configFilePath);
+
+            if (!File.Exists(configFilePath))
+            {
+                File.WriteAllText(configFilePath, "## Settings file was created by plugin UltraRandomizer v1.0.0\n## Plugin GUID: radsi.ultrarandomizer\n\n[Enemys Randomizer]\n\n## The difficulty of the enemies that can appear (1-6)\n# Setting type: Int32\n# Default value: 1\n# Acceptable value range: From 1 to 6\nDifficulty = 1");
+            }
+            else
+            {
+                string[] text = File.ReadAllLines(configFilePath);
+                foreach(var textLine in text)
+                {
+                    if (textLine.Contains("="))
+                    {
+                        difficulty = int.Parse(textLine.Split('=')[1]);
+                        break;
+                    }
+                }
+            }
+
             difficultyHandler = new DifficultiesHandler();
 
             difficultyHandler.New(new int[] { 0, 1, 2, 3, 21 });
@@ -36,16 +61,6 @@ namespace UltraRandomizer
             difficultyHandler.New(new int[] { 0, 1, 2, 3, 4, 9, 14, 15, 16, 19, 21, 22 });
             difficultyHandler.New(new int[] { 0, 1, 2, 3, 4, 5, 6, 9, 14, 15, 16, 18, 19, 21, 22 });
             difficultyHandler.New(new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 24, 25 });
-
-            Logger.LogMessage("Plugin UltraRandomizer loaded");
-            difficulty = Config.Bind("Enemys Randomizer", "Difficulty", 1, new ConfigDescription("The difficulty of the enemies that can appear (1-6)", new AcceptableValueRange<int>(1, 6)));
-        }
-
-        public static object GetPrivate<T>(T instance, string fieldName)
-        {
-            BindingFlags bindFlags = BindingFlags.Instance | BindingFlags.NonPublic;
-            FieldInfo field = typeof(T).GetField(fieldName, bindFlags);
-            return field.GetValue(instance);
         }
 
         private void Update()
@@ -83,42 +98,9 @@ namespace UltraRandomizer
                     if (enemys[i].transform.childCount > 3 && !enemys[i].name.Contains("mod"))
                     {
                         System.Random r = new System.Random();
-<<<<<<< HEAD
-                        int[] arr = difficultyHandler.GetDifficulty(difficulty.Value-1).enemies;
+
+                        int[] arr = difficultyHandler.GetDifficulty(difficulty - 1).enemies;
                         int rInt = arr[r.Next(arr.Length)];
-=======
-                        int[] arr;
-                        int rInt = 0;
-
-                        switch (difficulty.Value)
-                        {
-                            case 1:
-                                arr = new int[] { 0, 1, 2, 3, 21 };
-                                rInt = arr[r.Next(arr.Length)];
-                                break;
-                            case 2:
-                                arr = new int[] { 0, 1, 2, 3, 4, 9, 14, 21 };
-                                rInt = arr[r.Next(arr.Length)];
-                                break;
-                            case 3:
-                                arr = new int[] { 0, 1, 2, 3, 4, 9, 14, 15, 21 };
-                                rInt = arr[r.Next(arr.Length)];
-                                break;
-                            case 4:
-                                arr = new int[] { 0, 1, 2, 3, 4, 9, 14, 15, 16, 19, 21, 22 };
-                                rInt = arr[r.Next(arr.Length)];
-                                break;
-                            case 5:
-                                arr = new int[] { 0, 1, 2, 3, 4, 5, 6, 9, 14, 15, 16, 18, 19, 21, 22 };
-                                rInt = arr[r.Next(arr.Length)];
-                                break;
-                            case 6:
-                                arr = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 24, 25 };
-                                rInt = arr[r.Next(arr.Length)];
-                                break;
-
-                        }
->>>>>>> 8920ffdfa2498ec30d6fd33a7e97e673ffbba9de
 
                         newEnemy = objectsDatabase.enemies[rInt];
 
@@ -152,6 +134,32 @@ namespace UltraRandomizer
             MethodInfo dynMethod = type.GetType().GetMethod(voidName,
             BindingFlags.NonPublic | BindingFlags.Instance);
             return dynMethod.Invoke(instance, null);
+        }
+    }
+
+    public class INIFile
+    {
+        public string path { get; private set; }
+
+        [DllImport("kernel32")]
+        private static extern long WritePrivateProfileString(string section, string key, string val, string filePath);
+        [DllImport("kernel32")]
+        private static extern int GetPrivateProfileString(string section, string key, string def, StringBuilder retVal, int size, string filePath);
+
+        public INIFile(string INIPath)
+        {
+            path = INIPath;
+        }
+        public void IniWriteValue(string Section, string Key, string Value)
+        {
+            WritePrivateProfileString(Section, Key, Value, this.path);
+        }
+
+        public string IniReadValue(string Section, string Key)
+        {
+            StringBuilder temp = new StringBuilder(255);
+            int i = GetPrivateProfileString(Section, Key, "", temp, 255, this.path);
+            return temp.ToString();
         }
     }
 }
