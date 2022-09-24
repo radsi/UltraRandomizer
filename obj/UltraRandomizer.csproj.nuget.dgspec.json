@@ -1,26 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "A:\\Juegos y +\\UltraKill Modding\\UltraRandomizer\\UltraRandomizer.csproj": {}
+    "C:\\Users\\neptu\\Downloads\\Ultrakill-Randomizer-main\\UltraRandomizer.csproj": {}
   },
   "projects": {
-    "A:\\Juegos y +\\UltraKill Modding\\UltraRandomizer\\UltraRandomizer.csproj": {
+    "C:\\Users\\neptu\\Downloads\\Ultrakill-Randomizer-main\\UltraRandomizer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "A:\\Juegos y +\\UltraKill Modding\\UltraRandomizer\\UltraRandomizer.csproj",
+        "projectUniqueName": "C:\\Users\\neptu\\Downloads\\Ultrakill-Randomizer-main\\UltraRandomizer.csproj",
         "projectName": "UltraRandomizer",
-        "projectPath": "A:\\Juegos y +\\UltraKill Modding\\UltraRandomizer\\UltraRandomizer.csproj",
-        "packagesPath": "C:\\Users\\jpd88\\.nuget\\packages\\",
-        "outputPath": "A:\\Juegos y +\\UltraKill Modding\\UltraRandomizer\\obj\\",
+        "projectPath": "C:\\Users\\neptu\\Downloads\\Ultrakill-Randomizer-main\\UltraRandomizer.csproj",
+        "packagesPath": "C:\\Users\\neptu\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\neptu\\Downloads\\Ultrakill-Randomizer-main\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "A:\\Juegos y +\\UltraKill Modding\\UltraRandomizer\\NuGet.Config",
-          "C:\\Users\\jpd88\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\neptu\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -50,15 +44,15 @@
             "BepInEx.Analyzers": {
               "suppressParent": "All",
               "target": "Package",
-              "version": "[1.*, )"
+              "version": "[1.0.8, )"
             },
             "BepInEx.Core": {
               "target": "Package",
-              "version": "[5.*, )"
+              "version": "[5.4.21, )"
             },
             "BepInEx.PluginInfoProps": {
               "target": "Package",
-              "version": "[1.*, )"
+              "version": "[2.1.0, )"
             },
             "NETStandard.Library": {
               "suppressParent": "All",
@@ -82,7 +76,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.411\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }

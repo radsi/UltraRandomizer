@@ -6,9 +6,12 @@ using System.Linq;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
+using UMM;
 
 namespace UltraRandomizer
 {
+    //[UKPlugin("UltraRandomizer", "Enemy Randomizer for ULTRAKILL", "1.0.0",false,false)]
     [BepInPlugin("radsi.ultrarandomizer", "UltraRandomizer", "1.0.0")]
     public class UltraRandomizer : BaseUnityPlugin
     {
@@ -19,6 +22,7 @@ namespace UltraRandomizer
         ConfigEntry<int> difficulty;
 
         SpawnableObject newEnemy;
+        public List<GameObject> ToDestroyThisFrame = new List<GameObject>();
 
         private void Start()
         {
@@ -26,8 +30,24 @@ namespace UltraRandomizer
             difficulty = Config.Bind("Enemys Randomizer", "Difficulty", 1, new ConfigDescription("The difficulty of the enemies that can appear (1-6)", new AcceptableValueRange<int>(1, 6)));
         }
 
+        public static object GetPrivate<T>(T instance, string fieldName)
+        {
+            BindingFlags bindFlags = BindingFlags.Instance | BindingFlags.NonPublic;
+            FieldInfo field = typeof(T).GetField(fieldName, bindFlags);
+            return field.GetValue(instance);
+        }
+
         private void Update()
         {
+            for (int i=0;i<ToDestroyThisFrame.Count;i++)
+            {
+                GameObject enemy = ToDestroyThisFrame[i];
+                if (enemy)
+                {
+                    Destroy(enemy);
+                }
+            }
+
             if (player == null)
             {
                 player = GameObject.Find("Player");
@@ -43,7 +63,7 @@ namespace UltraRandomizer
                 }
             }
 
-            if (player.GetComponent<NewMovement>().activated == true)
+            if (NewMovement.Instance)
             {
                 GameObject[] enemys = GameObject.FindGameObjectsWithTag("Enemy");
 
@@ -91,7 +111,16 @@ namespace UltraRandomizer
                         ne.transform.position = enemys[i].transform.position;
                         ne.transform.SetParent(enemys[i].transform.parent);
 
-                        Destroy(enemys[i]);
+                        GameObject enemy = enemys[i];
+                        enemy.name += "mod";
+                        ToDestroyThisFrame.Add(enemy);
+
+                        if (enemy.TryGetComponent(out EventOnDestroy eod))
+                        {
+                            MethodInfo dynMethod = eod.GetType().GetMethod("OnDestroy",
+                                BindingFlags.NonPublic | BindingFlags.Instance);
+                            dynMethod.Invoke(eod, null);
+                        }
                     }
                 }
             }

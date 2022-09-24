@@ -30,7 +30,7 @@
           "build/BepInEx.Core.targets": {}
         }
       },
-      "BepInEx.PluginInfoProps/1.1.0": {
+      "BepInEx.PluginInfoProps/2.1.0": {
         "type": "package",
         "build": {
           "build/BepInEx.PluginInfoProps.props": {}
@@ -606,13 +606,13 @@
         "tools/Install.ps1"
       ]
     },
-    "BepInEx.PluginInfoProps/1.1.0": {
-      "sha512": "RqM3aaGs8Hc2m0D+8aSt9mv09rCMYNIF35NB3D6KA2zSpcXJh/9ZVWrPlIUJfA8KYzodSWcCMUexEW24fjwR3w==",
+    "BepInEx.PluginInfoProps/2.1.0": {
+      "sha512": "VCG3QRiqNdW9ku2FEcNsbK+HKxrZmW0VxwMNyLNO7h0xGorU+C6vBHN8Qq4eAL5fU11Uks5x2uoYdqEoKD3P8A==",
       "type": "package",
-      "path": "bepinex.plugininfoprops/1.1.0",
+      "path": "bepinex.plugininfoprops/2.1.0",
       "files": [
         ".nupkg.metadata",
-        "bepinex.plugininfoprops.1.1.0.nupkg.sha512",
+        "bepinex.plugininfoprops.2.1.0.nupkg.sha512",
         "bepinex.plugininfoprops.nuspec",
         "build/BepInEx.PluginInfoProps.props"
       ]
@@ -657,6 +657,7 @@
       "path": "microsoft.netcore.targets/1.1.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/netstandard1.0/_._",
@@ -864,6 +865,7 @@
       "path": "system.collections/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -931,6 +933,7 @@
       "path": "system.collections.nongeneric/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -969,6 +972,7 @@
       "path": "system.collections.specialized/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -1007,6 +1011,7 @@
       "path": "system.componentmodel/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -1065,6 +1070,7 @@
       "path": "system.componentmodel.primitives/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -1156,6 +1162,7 @@
       "path": "system.diagnostics.debug/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -1223,6 +1230,7 @@
       "path": "system.globalization/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -1290,6 +1298,7 @@
       "path": "system.globalization.extensions/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -1411,6 +1420,7 @@
       "path": "system.io.filesystem.primitives/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -1449,6 +1459,7 @@
       "path": "system.linq/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -1520,6 +1531,7 @@
       "path": "system.reflection/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -1770,6 +1782,7 @@
       "path": "system.reflection.extensions/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -1826,6 +1839,7 @@
       "path": "system.reflection.primitives/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -1955,6 +1969,7 @@
       "path": "system.resources.resourcemanager/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -2103,6 +2118,7 @@
       "path": "system.runtime.extensions/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -2183,6 +2199,7 @@
       "path": "system.runtime.handles/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -2220,6 +2237,7 @@
       "path": "system.runtime.interopservices/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -2312,6 +2330,7 @@
       "path": "system.text.encoding/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -2379,6 +2398,7 @@
       "path": "system.threading/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -2449,6 +2469,7 @@
       "path": "system.threading.tasks/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -2703,35 +2724,27 @@
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
-      "BepInEx.Analyzers >= 1.*",
-      "BepInEx.Core >= 5.*",
-      "BepInEx.PluginInfoProps >= 1.*",
+      "BepInEx.Analyzers >= 1.0.8",
+      "BepInEx.Core >= 5.4.21",
+      "BepInEx.PluginInfoProps >= 2.1.0",
       "NETStandard.Library >= 2.0.3",
       "UnityEngine.Modules >= 2019.4.16"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\jpd88\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\neptu\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "A:\\Juegos y +\\UltraKill Modding\\UltraRandomizer\\UltraRandomizer.csproj",
+      "projectUniqueName": "C:\\Users\\neptu\\Downloads\\Ultrakill-Randomizer-main\\UltraRandomizer.csproj",
       "projectName": "UltraRandomizer",
-      "projectPath": "A:\\Juegos y +\\UltraKill Modding\\UltraRandomizer\\UltraRandomizer.csproj",
-      "packagesPath": "C:\\Users\\jpd88\\.nuget\\packages\\",
-      "outputPath": "A:\\Juegos y +\\UltraKill Modding\\UltraRandomizer\\obj\\",
+      "projectPath": "C:\\Users\\neptu\\Downloads\\Ultrakill-Randomizer-main\\UltraRandomizer.csproj",
+      "packagesPath": "C:\\Users\\neptu\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\neptu\\Downloads\\Ultrakill-Randomizer-main\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "A:\\Juegos y +\\UltraKill Modding\\UltraRandomizer\\NuGet.Config",
-        "C:\\Users\\jpd88\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\neptu\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -2761,15 +2774,15 @@
           "BepInEx.Analyzers": {
             "suppressParent": "All",
             "target": "Package",
-            "version": "[1.*, )"
+            "version": "[1.0.8, )"
           },
           "BepInEx.Core": {
             "target": "Package",
-            "version": "[5.*, )"
+            "version": "[5.4.21, )"
           },
           "BepInEx.PluginInfoProps": {
             "target": "Package",
-            "version": "[1.*, )"
+            "version": "[2.1.0, )"
           },
           "NETStandard.Library": {
             "suppressParent": "All",
@@ -2793,7 +2806,7 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.411\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }

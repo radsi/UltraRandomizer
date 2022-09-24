@@ -11,3 +11,28 @@ A:\Juegos y +\UltraKill Modding\UltraRandomizer\obj\Debug\netstandard2.0\UltraRa
 A:\Juegos y +\UltraKill Modding\UltraRandomizer\obj\Debug\netstandard2.0\UltraRandomizer.dll
 A:\Juegos y +\UltraKill Modding\UltraRandomizer\obj\Debug\netstandard2.0\UltraRandomizer.pdb
 A:\Juegos y +\UltraKill Modding\UltraRandomizer\obj\Debug\netstandard2.0\UltraRandomizer.csproj.AssemblyReference.cache
+C:\Users\neptu\Downloads\Ultrakill-Randomizer-main\bin\Debug\netstandard2.0\UltraRandomizer.deps.json
+C:\Users\neptu\Downloads\Ultrakill-Randomizer-main\bin\Debug\netstandard2.0\UltraRandomizer.dll
+C:\Users\neptu\Downloads\Ultrakill-Randomizer-main\bin\Debug\netstandard2.0\UltraRandomizer.pdb
+C:\Users\neptu\Downloads\Ultrakill-Randomizer-main\bin\Debug\netstandard2.0\Assembly-CSharp.dll
+C:\Users\neptu\Downloads\Ultrakill-Randomizer-main\bin\Debug\netstandard2.0\Facepunch.Steamworks.Win64.dll
+C:\Users\neptu\Downloads\Ultrakill-Randomizer-main\bin\Debug\netstandard2.0\UnityEngine.UI.dll
+C:\Users\neptu\Downloads\Ultrakill-Randomizer-main\bin\Debug\netstandard2.0\Unity.InputSystem.dll
+C:\Users\neptu\Downloads\Ultrakill-Randomizer-main\bin\Debug\netstandard2.0\NavMeshComponents.dll
+C:\Users\neptu\Downloads\Ultrakill-Randomizer-main\bin\Debug\netstandard2.0\Unity.TextMeshPro.dll
+C:\Users\neptu\Downloads\Ultrakill-Randomizer-main\bin\Debug\netstandard2.0\UnityUIExtensions.dll
+C:\Users\neptu\Downloads\Ultrakill-Randomizer-main\bin\Debug\netstandard2.0\NewBlood.LegacyInput.dll
+C:\Users\neptu\Downloads\Ultrakill-Randomizer-main\bin\Debug\netstandard2.0\Newtonsoft.Json.dll
+C:\Users\neptu\Downloads\Ultrakill-Randomizer-main\bin\Debug\netstandard2.0\Unity.ProBuilder.dll
+C:\Users\neptu\Downloads\Ultrakill-Randomizer-main\bin\Debug\netstandard2.0\Unity.ProBuilder.Poly2Tri.dll
+C:\Users\neptu\Downloads\Ultrakill-Randomizer-main\bin\Debug\netstandard2.0\Unity.ProBuilder.KdTree.dll
+C:\Users\neptu\Downloads\Ultrakill-Randomizer-main\obj\Debug\netstandard2.0\UltraRandomizer.csproj.AssemblyReference.cache
+C:\Users\neptu\Downloads\Ultrakill-Randomizer-main\obj\Debug\netstandard2.0\MyPluginInfo.cs
+C:\Users\neptu\Downloads\Ultrakill-Randomizer-main\obj\Debug\netstandard2.0\UltraRandomizer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\neptu\Downloads\Ultrakill-Randomizer-main\obj\Debug\netstandard2.0\UltraRandomizer.AssemblyInfoInputs.cache
+C:\Users\neptu\Downloads\Ultrakill-Randomizer-main\obj\Debug\netstandard2.0\UltraRandomizer.AssemblyInfo.cs
+C:\Users\neptu\Downloads\Ultrakill-Randomizer-main\obj\Debug\netstandard2.0\UltraRandomizer.csproj.CoreCompileInputs.cache
+C:\Users\neptu\Downloads\Ultrakill-Randomizer-main\obj\Debug\netstandard2.0\UltraRandomizer.csproj.CopyComplete
+C:\Users\neptu\Downloads\Ultrakill-Randomizer-main\obj\Debug\netstandard2.0\UltraRandomizer.dll
+C:\Users\neptu\Downloads\Ultrakill-Randomizer-main\obj\Debug\netstandard2.0\UltraRandomizer.pdb
+C:\Users\neptu\Downloads\Ultrakill-Randomizer-main\bin\Debug\netstandard2.0\UMM.dll
