@@ -39,7 +39,7 @@ namespace UltraRandomizer
 
         private void Update()
         {
-            for (int i=0;i<ToDestroyThisFrame.Count;i++)
+            for (int i = 0; i < ToDestroyThisFrame.Count; i++)
             {
                 GameObject enemy = ToDestroyThisFrame[i];
                 if (enemy)
@@ -80,23 +80,23 @@ namespace UltraRandomizer
                             case 1:
                                 arr = new int[] { 0, 1, 2, 3, 21 };
                                 rInt = arr[r.Next(arr.Length)];
-                            break;
+                                break;
                             case 2:
-                                arr = new int[] { 0, 1, 2, 3, 4, 9, 14, 21};
+                                arr = new int[] { 0, 1, 2, 3, 4, 9, 14, 21 };
                                 rInt = arr[r.Next(arr.Length)];
-                            break;
+                                break;
                             case 3:
-                                arr = new int[] { 0, 1, 2, 3, 4, 9, 14, 15, 21};
+                                arr = new int[] { 0, 1, 2, 3, 4, 9, 14, 15, 21 };
                                 rInt = arr[r.Next(arr.Length)];
-                            break;
+                                break;
                             case 4:
                                 arr = new int[] { 0, 1, 2, 3, 4, 9, 14, 15, 16, 19, 21, 22 };
                                 rInt = arr[r.Next(arr.Length)];
-                            break;
+                                break;
                             case 5:
                                 arr = new int[] { 0, 1, 2, 3, 4, 5, 6, 9, 14, 15, 16, 18, 19, 21, 22 };
                                 rInt = arr[r.Next(arr.Length)];
-                            break;
+                                break;
                             case 6:
                                 arr = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 24, 25 };
                                 rInt = arr[r.Next(arr.Length)];
@@ -117,21 +117,25 @@ namespace UltraRandomizer
 
                         if (enemy.TryGetComponent(out EventOnDestroy eod))
                         {
-                            MethodInfo dynMethod = eod.GetType().GetMethod("OnDestroy",
-                                BindingFlags.NonPublic | BindingFlags.Instance);
-                            dynMethod.Invoke(eod, null);
+                            CallInstanceVoid(typeof(EventOnDestroy), eod, "OnDestroy");
                         }
                     }
                 }
             }
         }
 
-
         internal static object GetInstanceField(Type type, object instance, string fieldName)
         {
             BindingFlags bindFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
             FieldInfo field = type.GetField(fieldName, bindFlags);
             return field.GetValue(instance);
+        }
+        
+        internal static object CallInstanceVoid(Type type, object instance, string voidName)
+        {
+            MethodInfo dynMethod = type.GetType().GetMethod(voidName,
+            BindingFlags.NonPublic | BindingFlags.Instance);
+            return dynMethod.Invoke(instance, null);
         }
     }
 }
