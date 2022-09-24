@@ -2737,11 +2737,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\neptu\\Downloads\\Ultrakill-Randomizer-main\\UltraRandomizer.csproj",
+      "projectUniqueName": "C:\\Users\\neptu\\Documents\\GitHub\\Ultrakill-Randomizer\\UltraRandomizer.csproj",
       "projectName": "UltraRandomizer",
-      "projectPath": "C:\\Users\\neptu\\Downloads\\Ultrakill-Randomizer-main\\UltraRandomizer.csproj",
+      "projectPath": "C:\\Users\\neptu\\Documents\\GitHub\\Ultrakill-Randomizer\\UltraRandomizer.csproj",
       "packagesPath": "C:\\Users\\neptu\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\neptu\\Downloads\\Ultrakill-Randomizer-main\\obj\\",
+      "outputPath": "C:\\Users\\neptu\\Documents\\GitHub\\Ultrakill-Randomizer\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\neptu\\AppData\\Roaming\\NuGet\\NuGet.Config",

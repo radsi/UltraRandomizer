@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "fSQ2VFDZuntQUfXvXuIFlUOGBwrfBXCrVzARQbOfm3339wwhcCD6VcpcG6cP0KMEqm7CrVin2zkt1xu4Ad3Gmw==",
+  "dgSpecHash": "zFvLTE1Ccrm0mrPqIz1hnO0G/py6B0OMtYPPTAK5xHITctZWF/6ZlSwVYAU8ttJ7f7wYdikHgMPlA2iyty3t8g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\neptu\\Downloads\\Ultrakill-Randomizer-main\\UltraRandomizer.csproj",
+  "projectFilePath": "C:\\Users\\neptu\\Documents\\GitHub\\Ultrakill-Randomizer\\UltraRandomizer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\neptu\\.nuget\\packages\\bepinex.analyzers\\1.0.8\\bepinex.analyzers.1.0.8.nupkg.sha512",
     "C:\\Users\\neptu\\.nuget\\packages\\bepinex.baselib\\5.4.20\\bepinex.baselib.5.4.20.nupkg.sha512",

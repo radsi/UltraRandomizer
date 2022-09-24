@@ -24,8 +24,19 @@ namespace UltraRandomizer
         SpawnableObject newEnemy;
         public List<GameObject> ToDestroyThisFrame = new List<GameObject>();
 
+        DifficultiesHandler difficultyHandler;
+
         private void Start()
         {
+            difficultyHandler = new DifficultiesHandler();
+
+            difficultyHandler.New(new int[] { 0, 1, 2, 3, 21 });
+            difficultyHandler.New(new int[] { 0, 1, 2, 3, 4, 9, 14, 21 });
+            difficultyHandler.New(new int[] { 0, 1, 2, 3, 4, 9, 14, 15, 21 });
+            difficultyHandler.New(new int[] { 0, 1, 2, 3, 4, 9, 14, 15, 16, 19, 21, 22 });
+            difficultyHandler.New(new int[] { 0, 1, 2, 3, 4, 5, 6, 9, 14, 15, 16, 18, 19, 21, 22 });
+            difficultyHandler.New(new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 24, 25 });
+
             Logger.LogMessage("Plugin UltraRandomizer loaded");
             difficulty = Config.Bind("Enemys Randomizer", "Difficulty", 1, new ConfigDescription("The difficulty of the enemies that can appear (1-6)", new AcceptableValueRange<int>(1, 6)));
         }
@@ -72,37 +83,8 @@ namespace UltraRandomizer
                     if (enemys[i].transform.childCount > 3 && !enemys[i].name.Contains("mod"))
                     {
                         System.Random r = new System.Random();
-                        int[] arr;
-                        int rInt = 0;
-
-                        switch (difficulty.Value)
-                        {
-                            case 1:
-                                arr = new int[] { 0, 1, 2, 3, 21 };
-                                rInt = arr[r.Next(arr.Length)];
-                            break;
-                            case 2:
-                                arr = new int[] { 0, 1, 2, 3, 4, 9, 14, 21};
-                                rInt = arr[r.Next(arr.Length)];
-                            break;
-                            case 3:
-                                arr = new int[] { 0, 1, 2, 3, 4, 9, 14, 15, 21};
-                                rInt = arr[r.Next(arr.Length)];
-                            break;
-                            case 4:
-                                arr = new int[] { 0, 1, 2, 3, 4, 9, 14, 15, 16, 19, 21, 22 };
-                                rInt = arr[r.Next(arr.Length)];
-                            break;
-                            case 5:
-                                arr = new int[] { 0, 1, 2, 3, 4, 5, 6, 9, 14, 15, 16, 18, 19, 21, 22 };
-                                rInt = arr[r.Next(arr.Length)];
-                            break;
-                            case 6:
-                                arr = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 24, 25 };
-                                rInt = arr[r.Next(arr.Length)];
-                                break;
-
-                        }
+                        int[] arr = difficultyHandler.GetDifficulty(difficulty.Value-1).enemies;
+                        int rInt = arr[r.Next(arr.Length)];
 
                         newEnemy = objectsDatabase.enemies[rInt];
 
