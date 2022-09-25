@@ -5,4 +5,4 @@ You can configure the difficulty with BepInEx ConfigManager or from the file tha
 
 To install it put the mod in the "plugins" folder of BepInEx
 
-To make a build you will need to add the game assembly as a reference in the project
+To make a build you will need to add the game assembly and UMM as references in the project
