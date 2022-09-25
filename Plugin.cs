@@ -42,11 +42,7 @@ namespace UltraRandomizer
             else
             {
                 string[] text = File.ReadAllLines(configFilePath);
-<<<<<<< HEAD
                 foreach (var textLine in text)
-=======
-                foreach(var textLine in text)
->>>>>>> 1315891a52f1c08564f41a68188766852362efb4
                 {
                     if (textLine.Contains("="))
                     {
