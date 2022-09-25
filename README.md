@@ -5,6 +5,6 @@ This mod requires [UMM to work](https://github.com/Temperz87/ultra-mod-manager/t
 
 You can configure the difficulty with BepInEx ConfigManager or from the file that is in BepInEx > config
 
-To install it put the mod in the "plugins" folder of BepInEx
-
-To make a build you will need to add the game assembly and UMM as references in the project
+## Configuration
+> we will have more advanced configuration in the future.
+To change configuration go to BepInEx/radsi.ultrarandomizer.cfg
