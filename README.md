@@ -1,6 +1,6 @@
-<p align="center">
-# UltraRandomizer
-</p>
+<h1 align="center">
+UltraRandomizer
+</h1>
 
 
 ![hello](https://github.com/github/docs/actions/workflows/main.yml/badge.svg)
