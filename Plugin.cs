@@ -35,7 +35,24 @@ namespace UltraRandomizer
 
         public override void OnModLoaded()
         {
-            difficulty = 6;
+            var configFilePath = AppDomain.CurrentDomain.BaseDirectory + @"\BepInEx\config\radsi.ultrarandomizer.cfg";
+
+            if (!File.Exists(configFilePath))
+            {
+                File.WriteAllText(configFilePath, "## Settings file was created by plugin UltraRandomizer v1.0.0\n## Plugin GUID: radsi.ultrarandomizer\n\n[Enemys Randomizer]\n\n## The difficulty of the enemies that can appear (1-6)\n# Setting type: Int32\n# Default value: 1\n# Acceptable value range: From 1 to 6\nDifficulty = 1");
+            }
+            else
+            {
+                string[] text = File.ReadAllLines(configFilePath);
+                foreach(var textLine in text)
+                {
+                    if (textLine.Contains("="))
+                    {
+                        difficulty = int.Parse(textLine.Split('=')[1]);
+                        break;
+                    }
+                }
+            }
 
             enemyBalanceHandler = new EnemyBalanceHandler();
             difficultyHandler = new DifficultiesHandler();
