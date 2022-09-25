@@ -23,36 +23,21 @@ namespace UltraRandomizer
         GameObject player;
 
         SpawnableObjectsDatabase objectsDatabase;
+        SpawnableObject newEnemy;
 
         int difficulty;
 
-        SpawnableObject newEnemy;
         public List<GameObject> ToDestroyThisFrame = new List<GameObject>();
+        public List<EnemyIdentifier> randomizedEnemies = new List<EnemyIdentifier>();
 
         DifficultiesHandler difficultyHandler;
+        EnemyBalanceHandler enemyBalanceHandler;
 
         public override void OnModLoaded()
         {
-            string configFilePath = AppDomain.CurrentDomain.BaseDirectory + @"\BepInEx\config\radsi.ultrarandomizer.cfg";
-            Debug.Log(configFilePath);
+            difficulty = 6;
 
-            if (!File.Exists(configFilePath))
-            {
-                File.WriteAllText(configFilePath, "## Settings file was created by plugin UltraRandomizer v1.0.0\n## Plugin GUID: radsi.ultrarandomizer\n\n[Enemys Randomizer]\n\n## The difficulty of the enemies that can appear (1-6)\n# Setting type: Int32\n# Default value: 1\n# Acceptable value range: From 1 to 6\nDifficulty = 1");
-            }
-            else
-            {
-                string[] text = File.ReadAllLines(configFilePath);
-                foreach(var textLine in text)
-                {
-                    if (textLine.Contains("="))
-                    {
-                        difficulty = int.Parse(textLine.Split('=')[1]);
-                        break;
-                    }
-                }
-            }
-
+            enemyBalanceHandler = new EnemyBalanceHandler();
             difficultyHandler = new DifficultiesHandler();
 
             difficultyHandler.New(new int[] { 0, 1, 2, 3, 21 });
@@ -65,12 +50,31 @@ namespace UltraRandomizer
 
         private void Update()
         {
+            enemyBalanceHandler.BalanceEnemies();
             for (int i = 0; i < ToDestroyThisFrame.Count; i++)
             {
                 GameObject enemy = ToDestroyThisFrame[i];
                 if (enemy)
                 {
                     Destroy(enemy);
+                }
+            }
+
+            for (int i = 0; i < randomizedEnemies.Count; i++)
+            {
+                EnemyIdentifier eid = randomizedEnemies[i];
+                if (eid.dead == true)
+                {
+                    Destroy(eid.gameObject);
+                    randomizedEnemies.RemoveAt(i);
+
+                    for (int index = 0; index < enemyBalanceHandler.enemiesToBalance.Count; index++)
+                    {
+                        if (enemyBalanceHandler.enemiesToBalance[index].eid == eid)
+                        {
+                            enemyBalanceHandler.enemiesToBalance.RemoveAt(index);
+                        }
+                    }
                 }
             }
 
@@ -105,17 +109,31 @@ namespace UltraRandomizer
                         newEnemy = objectsDatabase.enemies[rInt];
 
                         GameObject ne = Instantiate(newEnemy.gameObject);
+                        EnemyIdentifier neid = ne.GetComponent<EnemyIdentifier>();
 
                         ne.transform.position = enemys[i].transform.position;
                         ne.transform.SetParent(enemys[i].transform.parent);
+
+                        randomizedEnemies.Add(neid);
 
                         GameObject enemy = enemys[i];
                         enemy.name += "mod";
                         ToDestroyThisFrame.Add(enemy);
 
+                        EnemyIdentifier eid = enemy.GetComponent<EnemyIdentifier>();
+
                         if (enemy.TryGetComponent(out EventOnDestroy eod))
                         {
                             CallInstanceVoid(typeof(EventOnDestroy), eod, "OnDestroy");
+                        }
+
+                        if (eid.health >= 10)
+                        {
+                            EnemyBalance eb = new EnemyBalance();
+                            eb.eid = neid;
+
+                            enemyBalanceHandler.enemiesToBalance.Add(eb);
+                            // balancing
                         }
                     }
                 }
@@ -134,32 +152,6 @@ namespace UltraRandomizer
             MethodInfo dynMethod = type.GetType().GetMethod(voidName,
             BindingFlags.NonPublic | BindingFlags.Instance);
             return dynMethod.Invoke(instance, null);
-        }
-    }
-
-    public class INIFile
-    {
-        public string path { get; private set; }
-
-        [DllImport("kernel32")]
-        private static extern long WritePrivateProfileString(string section, string key, string val, string filePath);
-        [DllImport("kernel32")]
-        private static extern int GetPrivateProfileString(string section, string key, string def, StringBuilder retVal, int size, string filePath);
-
-        public INIFile(string INIPath)
-        {
-            path = INIPath;
-        }
-        public void IniWriteValue(string Section, string Key, string Value)
-        {
-            WritePrivateProfileString(Section, Key, Value, this.path);
-        }
-
-        public string IniReadValue(string Section, string Key)
-        {
-            StringBuilder temp = new StringBuilder(255);
-            int i = GetPrivateProfileString(Section, Key, "", temp, 255, this.path);
-            return temp.ToString();
         }
     }
 }

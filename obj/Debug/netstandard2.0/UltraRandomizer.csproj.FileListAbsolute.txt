@@ -48,7 +48,6 @@ C:\Users\neptu\Documents\GitHub\Ultrakill-Randomizer\bin\Debug\netstandard2.0\Na
 C:\Users\neptu\Documents\GitHub\Ultrakill-Randomizer\bin\Debug\netstandard2.0\Unity.TextMeshPro.dll
 C:\Users\neptu\Documents\GitHub\Ultrakill-Randomizer\bin\Debug\netstandard2.0\UnityUIExtensions.dll
 C:\Users\neptu\Documents\GitHub\Ultrakill-Randomizer\bin\Debug\netstandard2.0\NewBlood.LegacyInput.dll
-C:\Users\neptu\Documents\GitHub\Ultrakill-Randomizer\bin\Debug\netstandard2.0\Newtonsoft.Json.dll
 C:\Users\neptu\Documents\GitHub\Ultrakill-Randomizer\bin\Debug\netstandard2.0\Unity.ProBuilder.dll
 C:\Users\neptu\Documents\GitHub\Ultrakill-Randomizer\bin\Debug\netstandard2.0\Unity.ProBuilder.Poly2Tri.dll
 C:\Users\neptu\Documents\GitHub\Ultrakill-Randomizer\bin\Debug\netstandard2.0\Unity.ProBuilder.KdTree.dll
