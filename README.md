@@ -8,4 +8,4 @@ This mod requires [UMM to work](https://github.com/Temperz87/ultra-mod-manager/t
 ## Configuration
 > we will have more advanced configuration in the future.
 
-To change configuration go to BepInEx/radsi.ultrarandomizer.cfg or use BepInEx ConfigManager
+To change configuration go to BepInEx/config/radsi.ultrarandomizer.cfg or use BepInEx ConfigManager
