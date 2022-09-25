@@ -1,8 +1,13 @@
-# Ultrakill-Randomizer
-Mod that randomizes enemies (except drone and idol because they gave some problems)
+<h1 align="center">
+UltraRandomizer
+</h1>
+
+## Mod that randomizes enemies (except drone and idol because they gave some problems)
+This mod requires [UMM to work](https://github.com/Temperz87/ultra-mod-manager/tags).
 
 You can configure the difficulty with BepInEx ConfigManager or from the file that is in BepInEx > config
 
-To install it put the mod in the "plugins" folder of BepInEx
+## Configuration
+> we will have more advanced configuration in the future.
 
-To make a build you will need to add the game assembly as a reference in the project
+To change configuration go to BepInEx/radsi.ultrarandomizer.cfg
