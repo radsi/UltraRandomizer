@@ -2,8 +2,7 @@
 UltraRandomizer
 </h1>
 
-![hello](https://github.com/github/docs/actions/workflows/main.yml/badge.svg)
-![issues](https://github.com/radsi/Ultrakill-Randomizer/issues)
+![hello](https://github.com/github/docs/actions/workflows/dotnet.yml/badge.svg)
 
 ## Mod that randomizes enemies (except drone and idol because they gave some problems)
 This mod requires [UMM to work](https://github.com/Temperz87/ultra-mod-manager/tags).
