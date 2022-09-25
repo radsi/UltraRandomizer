@@ -13,6 +13,7 @@ using System.IO;
 using Newtonsoft.Json;
 using System.Runtime.InteropServices;
 using System.Text;
+using UltraRandomizer.HarmonyPatches;
 
 namespace UltraRandomizer
 {
@@ -33,6 +34,7 @@ namespace UltraRandomizer
 
         public override void OnModLoaded()
         {
+            new Harmony("UltraRandomizer").PatchAll();
             var configFilePath = AppDomain.CurrentDomain.BaseDirectory + @"\BepInEx\config\radsi.ultrarandomizer.cfg";
 
             if (!File.Exists(configFilePath))
@@ -64,20 +66,49 @@ namespace UltraRandomizer
 
         private void Update()
         {
-            for (int i = 0; i < ToDestroyThisFrame.Count; i++)
+            DestroyOldEnemies();
+            Database();
+
+            if (IsCheatActive.Instance.enabled == false)
+                return;
+
+            GameObject[] enemys = GameObject.FindGameObjectsWithTag("Enemy");
+            for (int i = 0; i < enemys.Length; i++)
             {
-                GameObject enemy = ToDestroyThisFrame[i];
-                if (enemy)
+                if (enemys[i].transform.childCount > 3 && !enemys[i].name.Contains("mod"))
                 {
-                    Destroy(enemy);
+                    System.Random r = new System.Random();
+
+                    int[] arr = difficultyHandler.GetDifficulty(difficulty - 1).enemies;
+                    int rInt = arr[r.Next(arr.Length)];
+
+                    newEnemy = objectsDatabase.enemies[rInt];
+
+                    GameObject ne = Instantiate(newEnemy.gameObject);
+                    EnemyIdentifier neid = ne.GetComponent<EnemyIdentifier>();
+
+                    ne.transform.position = enemys[i].transform.position;
+                    ne.transform.SetParent(enemys[i].transform.parent);
+
+                    GameObject enemy = enemys[i];
+                    enemy.name += "mod";
+                    ToDestroyThisFrame.Add(enemy);
+
+                    if (enemy.TryGetComponent(out EventOnDestroy eod))
+                    {
+                        CallInstanceVoid(typeof(EventOnDestroy), eod, "OnDestroy");
+                    }
                 }
             }
+        }
 
+        void Database()
+        {
             if (player == null)
             {
                 player = GameObject.Find("Player");
             }
-            else if (player != null && objectsDatabase == null)
+            else if (objectsDatabase == null)
             {
                 objectsDatabase = (SpawnableObjectsDatabase)GetInstanceField(typeof(SpawnMenu), player.transform.GetChild(10).GetChild(21).gameObject.GetComponent<SpawnMenu>(), "objects");
                 foreach (var x in objectsDatabase.enemies)
@@ -87,39 +118,20 @@ namespace UltraRandomizer
                     x.gameObject.name += " mod";
                 }
             }
+        }
 
-            if (NewMovement.Instance)
+        void DestroyOldEnemies()
+        {
+            for (int i = 0; i < ToDestroyThisFrame.Count; i++)
             {
-                GameObject[] enemys = GameObject.FindGameObjectsWithTag("Enemy");
-
-                for (int i = 0; i < enemys.Length; i++)
+                GameObject enemy = ToDestroyThisFrame[i];
+                if (enemy)
                 {
-                    if (enemys[i].transform.childCount > 3 && !enemys[i].name.Contains("mod"))
-                    {
-                        System.Random r = new System.Random();
-
-                        int[] arr = difficultyHandler.GetDifficulty(difficulty - 1).enemies;
-                        int rInt = arr[r.Next(arr.Length)];
-
-                        newEnemy = objectsDatabase.enemies[rInt];
-
-                        GameObject ne = Instantiate(newEnemy.gameObject);
-                        EnemyIdentifier neid = ne.GetComponent<EnemyIdentifier>();
-
-                        ne.transform.position = enemys[i].transform.position;
-                        ne.transform.SetParent(enemys[i].transform.parent);
-
-                        GameObject enemy = enemys[i];
-                        enemy.name += "mod";
-                        ToDestroyThisFrame.Add(enemy);
-
-                        EnemyIdentifier eid = enemy.GetComponent<EnemyIdentifier>();
-                        if (enemy.TryGetComponent(out EventOnDestroy eod))
-                        {
-                            CallInstanceVoid(typeof(EventOnDestroy), eod, "OnDestroy");
-                        }
-                    }
+                    Destroy(enemy);
+                    ToDestroyThisFrame.RemoveAt(i);
                 }
+                else
+                    ToDestroyThisFrame.RemoveAt(i);
             }
         }
 

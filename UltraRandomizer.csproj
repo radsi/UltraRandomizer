@@ -28,5 +28,8 @@
     <Reference Include="UMM">
       <HintPath>E:\SteamLibrary\steamapps\common\ULTRAKILL\BepInEx\plugins\UMM.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>E:\SteamLibrary\steamapps\common\ULTRAKILL\ULTRAKILL_Data\Managed\UnityEngine.UI.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>
