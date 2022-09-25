@@ -7,4 +7,5 @@ You can configure the difficulty with BepInEx ConfigManager or from the file tha
 
 ## Configuration
 > we will have more advanced configuration in the future.
+> 
 To change configuration go to BepInEx/radsi.ultrarandomizer.cfg
