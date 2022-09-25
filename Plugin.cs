@@ -28,16 +28,13 @@ namespace UltraRandomizer
         int difficulty;
 
         public List<GameObject> ToDestroyThisFrame = new List<GameObject>();
-        public List<EnemyIdentifier> randomizedEnemies = new List<EnemyIdentifier>();
 
         DifficultiesHandler difficultyHandler;
-        EnemyBalanceHandler enemyBalanceHandler;
 
         public override void OnModLoaded()
         {
             difficulty = 6;
 
-            enemyBalanceHandler = new EnemyBalanceHandler();
             difficultyHandler = new DifficultiesHandler();
 
             difficultyHandler.New(new int[] { 0, 1, 2, 3, 21 });
@@ -50,31 +47,12 @@ namespace UltraRandomizer
 
         private void Update()
         {
-            enemyBalanceHandler.BalanceEnemies();
             for (int i = 0; i < ToDestroyThisFrame.Count; i++)
             {
                 GameObject enemy = ToDestroyThisFrame[i];
                 if (enemy)
                 {
                     Destroy(enemy);
-                }
-            }
-
-            for (int i = 0; i < randomizedEnemies.Count; i++)
-            {
-                EnemyIdentifier eid = randomizedEnemies[i];
-                if (eid.dead == true)
-                {
-                    Destroy(eid.gameObject);
-                    randomizedEnemies.RemoveAt(i);
-
-                    for (int index = 0; index < enemyBalanceHandler.enemiesToBalance.Count; index++)
-                    {
-                        if (enemyBalanceHandler.enemiesToBalance[index].eid == eid)
-                        {
-                            enemyBalanceHandler.enemiesToBalance.RemoveAt(index);
-                        }
-                    }
                 }
             }
 
@@ -114,8 +92,6 @@ namespace UltraRandomizer
                         ne.transform.position = enemys[i].transform.position;
                         ne.transform.SetParent(enemys[i].transform.parent);
 
-                        randomizedEnemies.Add(neid);
-
                         GameObject enemy = enemys[i];
                         enemy.name += "mod";
                         ToDestroyThisFrame.Add(enemy);
@@ -125,15 +101,6 @@ namespace UltraRandomizer
                         if (enemy.TryGetComponent(out EventOnDestroy eod))
                         {
                             CallInstanceVoid(typeof(EventOnDestroy), eod, "OnDestroy");
-                        }
-
-                        if (eid.health >= 10)
-                        {
-                            EnemyBalance eb = new EnemyBalance();
-                            eb.eid = neid;
-
-                            enemyBalanceHandler.enemiesToBalance.Add(eb);
-                            // balancing
                         }
                     }
                 }
