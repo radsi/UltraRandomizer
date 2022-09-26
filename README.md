@@ -6,7 +6,7 @@ UltraRandomizer
 This mod requires [UMM to work](https://github.com/Temperz87/ultra-mod-manager/tags).
 
 ## How to use randomizer
-> you must have cheats enabled!
+You must have cheats enabled and active it in the cheat menu
 
 ## Configuration
 > we will have more advanced configuration in the future.
