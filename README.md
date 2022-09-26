@@ -2,8 +2,8 @@
 UltraRandomizer
 </h1>
 
+## (YOU MUST ENABLE CHEATS AND TOGGLE THE ENEMY RANDOMIZER CHEAT)
 ## Mod that randomizes enemies (except drone and idol because they gave some problems)
-# (YOU MUST ENABLE CHEATS AND TOGGLE THE ENEMY RANDOMIZER CHEAT)
 This mod requires [UMM to work](https://github.com/Temperz87/ultra-mod-manager/tags).
 
 ## Configuration
