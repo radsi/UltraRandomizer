@@ -1,4 +1,4 @@
-﻿using BepInEx;
+using BepInEx;
 using BepInEx.Configuration;
 using HarmonyLib;
 using System;
@@ -14,6 +14,7 @@ using Newtonsoft.Json;
 using System.Runtime.InteropServices;
 using System.Text;
 using UltraRandomizer.HarmonyPatches;
+using System.Collections;
 
 namespace UltraRandomizer
 {
@@ -27,6 +28,7 @@ namespace UltraRandomizer
         SpawnableObject newEnemy;
 
         int difficulty;
+        int weaponInterval;
 
         public List<GameObject> ToDestroyThisFrame = new List<GameObject>();
 
@@ -39,7 +41,7 @@ namespace UltraRandomizer
 
             if (!File.Exists(configFilePath))
             {
-                File.WriteAllText(configFilePath, "## Settings file was created by plugin UltraRandomizer v1.0.0\n## Plugin GUID: radsi.ultrarandomizer\n\n[Enemys Randomizer]\n\n## The difficulty of the enemies that can appear (1-6)\n# Setting type: Int32\n# Default value: 1\n# Acceptable value range: From 1 to 6\nDifficulty = 1");
+                File.WriteAllText(configFilePath, "## Settings file was created by plugin UltraRandomizer v1.0.0\n## Plugin GUID: radsi.ultrarandomizer\n\n[Enemys Randomizer]\n\n## The difficulty of the enemies that can appear (1-6)\n# Setting type: Int32\n# Default value: 1\n# Acceptable value range: From 1 to 6\nDifficulty = 1\n\n[Weapon Randomizer]\n\n## The time interval in seconds between each weapon\n# Setting type: Int32\n# Default value: 5\n# Acceptable value range: From 5 to 600\nInterval = 5");
             }
             else
             {
@@ -48,8 +50,14 @@ namespace UltraRandomizer
                 {
                     if (textLine.Contains("="))
                     {
-                        difficulty = int.Parse(textLine.Split('=')[1]);
-                        break;
+                        if (textLine.Contains("Difficulty"))
+                        {
+                            difficulty = int.Parse(textLine.Split('=')[1]);
+                        }
+                        else
+                        {
+                            weaponInterval = int.Parse(textLine.Split('=')[1]);
+                        }
                     }
                 }
             }
@@ -62,6 +70,8 @@ namespace UltraRandomizer
             difficultyHandler.New(new int[] { 0, 1, 2, 3, 4, 9, 14, 15, 16, 19, 21, 22 });
             difficultyHandler.New(new int[] { 0, 1, 2, 3, 4, 5, 6, 9, 14, 15, 16, 18, 19, 21, 22 });
             difficultyHandler.New(new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 24, 25 });
+
+            InvokeRepeating("ChangeWeapon", 0, weaponInterval);
         }
 
         private void Update()
@@ -69,34 +79,34 @@ namespace UltraRandomizer
             DestroyOldEnemies();
             Database();
 
-            if (IsCheatActive.Instance.enabled == false)
-                return;
-
-            GameObject[] enemys = GameObject.FindGameObjectsWithTag("Enemy");
-            for (int i = 0; i < enemys.Length; i++)
+            if (IsCheatActive.Instance.EnemyEnabled == true)
             {
-                if (enemys[i].transform.childCount > 3 && !enemys[i].name.Contains("mod"))
+                GameObject[] enemys = GameObject.FindGameObjectsWithTag("Enemy");
+                for (int i = 0; i < enemys.Length; i++)
                 {
-                    System.Random r = new System.Random();
-
-                    int[] arr = difficultyHandler.GetDifficulty(difficulty - 1).enemies;
-                    int rInt = arr[r.Next(arr.Length)];
-
-                    newEnemy = objectsDatabase.enemies[rInt];
-
-                    GameObject ne = Instantiate(newEnemy.gameObject);
-                    EnemyIdentifier neid = ne.GetComponent<EnemyIdentifier>();
-
-                    ne.transform.position = enemys[i].transform.position;
-                    ne.transform.SetParent(enemys[i].transform.parent);
-
-                    GameObject enemy = enemys[i];
-                    enemy.name += "mod";
-                    ToDestroyThisFrame.Add(enemy);
-
-                    if (enemy.TryGetComponent(out EventOnDestroy eod))
+                    if (enemys[i].transform.childCount > 3 && !enemys[i].name.Contains("mod"))
                     {
-                        CallInstanceVoid(typeof(EventOnDestroy), eod, "OnDestroy");
+                        System.Random r = new System.Random();
+
+                        int[] arr = difficultyHandler.GetDifficulty(difficulty - 1).enemies;
+                        int rInt = arr[r.Next(arr.Length)];
+
+                        newEnemy = objectsDatabase.enemies[rInt];
+
+                        GameObject ne = Instantiate(newEnemy.gameObject);
+                        EnemyIdentifier neid = ne.GetComponent<EnemyIdentifier>();
+
+                        ne.transform.position = enemys[i].transform.position;
+                        ne.transform.SetParent(enemys[i].transform.parent);
+
+                        GameObject enemy = enemys[i];
+                        enemy.name += "mod";
+                        ToDestroyThisFrame.Add(enemy);
+
+                        if (enemy.TryGetComponent(out EventOnDestroy eod))
+                        {
+                            CallInstanceVoid(typeof(EventOnDestroy), eod, "OnDestroy");
+                        }
                     }
                 }
             }
@@ -132,6 +142,27 @@ namespace UltraRandomizer
                 }
                 else
                     ToDestroyThisFrame.RemoveAt(i);
+            }
+        }
+
+        void ChangeWeapon()
+        {
+            if (IsCheatActive.Instance.WeaponEnabled == true)
+            {
+                GunControl gunControl = player.GetComponentInChildren<GunControl>();
+
+                System.Random r = new System.Random();
+                var weapon = r.Next(gunControl.allWeapons.Count);
+
+                if (gunControl.allWeapons[weapon] == null)
+                {
+                    gunControl.NoWeapon();
+                }
+                else
+                {
+                    if (gunControl.noWeapons) { gunControl.YesWeapon(); }
+                    gunControl.ForceWeapon(gunControl.allWeapons[weapon]);
+                }
             }
         }
 
