@@ -107,6 +107,11 @@ namespace UltraRandomizer
                         {
                             eod.stuff.Invoke();
                         }
+
+                        if (enemy.TryGetComponent(out LeviathanController lc))
+                        {
+                            lc.DeathEnd();
+                        }
                     }
                 }
             }
