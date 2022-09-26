@@ -103,9 +103,9 @@ namespace UltraRandomizer
                         enemy.name += "mod";
                         ToDestroyThisFrame.Add(enemy);
 
-                        if (enemy.TryGetComponent(out EventOnDestroy eod))
+                        if (ne.TryGetComponent(out EnemyIdentifier ei) && enemy.TryGetComponent(out EventOnDestroy eod))
                         {
-                            eod.stuff.Invoke();
+                            ei.onDeath.AddListener(eod.stuff.Invoke);
                         }
 
                         if (enemy.TryGetComponent(out LeviathanController lc))
