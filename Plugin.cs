@@ -105,7 +105,7 @@ namespace UltraRandomizer
 
                         if (enemy.TryGetComponent(out EventOnDestroy eod))
                         {
-                            CallInstanceVoid(typeof(EventOnDestroy), eod, "OnDestroy");
+                            eod.stuff.Invoke();
                         }
                     }
                 }
