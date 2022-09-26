@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using HarmonyLib;
@@ -13,7 +13,8 @@ namespace UltraRandomizer.HarmonyPatches
 		public static void Prefix(CheatsManager __instance)
 		{
 			__instance.RebuildIcons();
-			__instance.RegisterCheat(new TheCheat(), "mods");
+			__instance.RegisterCheat(new EnemyCheat(), "mods");
+			__instance.RegisterCheat(new WeaponCheat(), "mods");
 		}
 	}
 }
