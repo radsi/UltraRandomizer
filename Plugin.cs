@@ -112,6 +112,11 @@ namespace UltraRandomizer
                         {
                             lc.DeathEnd();
                         }
+
+                        if (enemy.TryGetComponent(out V2 v))
+                        {
+                            ne.transform.position = new Vector3(0,-19.5f,627);
+                        }
                     }
                 }
             }
