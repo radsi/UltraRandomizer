@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace UltraRandomizer.MenuSystem
 {
-    public class EnemySettingHandler
+    public class EnemySettingHandler : MonoSingleton<EnemySettingHandler>
     {
         public List<EnemySetting> shitstuff = new List<EnemySetting>();
     }

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using UMM;
 using System.IO;
 using UltraRandomizer.HarmonyPatches;
+using UltraRandomizer.MenuSystem;
 
 namespace UltraRandomizer
 {
@@ -22,8 +23,6 @@ namespace UltraRandomizer
         int weaponInterval;
 
         public List<GameObject> ToDestroyThisFrame = new List<GameObject>();
-
-        public List<int> arr;
         
         EnemiesEnabled ee = EnemiesEnabled.Instance;
 
@@ -51,6 +50,8 @@ namespace UltraRandomizer
             InvokeRepeating("ChangeWeapon", 0, weaponInterval);
         }
 
+        private GameObject hackywackyway;
+
         private void Update()
         {
             EnemiesEnabled ee = EnemiesEnabled.Instance;
@@ -58,7 +59,10 @@ namespace UltraRandomizer
             DestroyOldEnemies();
             Database();
 
-            if (IsCheatActive.Instance.EnemyEnabled == true && EnemiesEnabled.Instance.enemiesEnabled.Count > 0)
+            DontDestroyOnLoad(ee);
+            DontDestroyOnLoad(EnemySettingHandler.Instance);
+
+            if (IsCheatActive.Instance.EnemyEnabled == true && ee.enemiesEnabled.Count > 0)
             {
                 GameObject[] enemys = GameObject.FindGameObjectsWithTag("Enemy");
 
@@ -69,11 +73,9 @@ namespace UltraRandomizer
                 {
                     if (enemys[i].transform.childCount > 3 && !enemys[i].name.Contains("mod"))
                     {
-                        System.Random r = new System.Random();    
-                        int rInt = arr[r.Next(ee.enemiesEnabled.Count)];
-
-                        int index = ee.enemiesEnabled[rInt].spawnarmindex;
-                        SpawnableObject newEnemy = objectsDatabase.enemies[index];
+                        System.Random r = new System.Random();
+                        int rInt = ee.enemiesEnabled[r.Next(ee.enemiesEnabled.Count)].spawnarmindex;
+                        SpawnableObject newEnemy = objectsDatabase.enemies[rInt];
 
                         GameObject ne = Instantiate(newEnemy.gameObject);
                         EnemyIdentifier neid = ne.GetComponent<EnemyIdentifier>();

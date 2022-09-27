@@ -70,8 +70,6 @@ namespace UltraRandomizer.HarmonyPatches
                 GameObject.Destroy(hoverText.GetComponent<Button>());
                 hoverText.SetActive(false);
 
-                EnemySettingHandler esh = new EnemySettingHandler();
-
                 GameObject player = GameObject.Find("Player");
                 SpawnableObjectsDatabase objectsDatabase = null;
 
@@ -86,6 +84,7 @@ namespace UltraRandomizer.HarmonyPatches
                 bool doneThing = false;
                 void dothing()
                 {
+                    EnemySettingHandler esh = EnemySettingHandler.Instance;
                     if (doneThing == false)
                         doneThing = true;
                     else
@@ -119,7 +118,7 @@ namespace UltraRandomizer.HarmonyPatches
                             Button newButton = newInformation.AddComponent<Button>();
                             newButton.transition = Selectable.Transition.ColorTint;
                             newButton.targetGraphic = newInformation.GetComponent<Image>();
-                            newButton.targetGraphic.color = Color.red;
+                            newButton.targetGraphic.color = info.enabled ? Color.green : Color.red;
 
                             newInformation.transform.Find("Red").gameObject.SetActive(false);
                             newInformation.transform.Find("Green").gameObject.SetActive(false);
@@ -156,6 +155,17 @@ namespace UltraRandomizer.HarmonyPatches
                                         {
                                             Debug.Log("added " + id + " to enabled enemies");
                                             EnemiesEnabled.Instance.enemiesEnabled.Add(esh.shitstuff[i]);
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    for (int i = 0; i < esh.shitstuff.Count; i++)
+                                    {
+                                        if (esh.shitstuff[i].id == id)
+                                        {
+                                            Debug.Log("removed " + id + " from enabled enemies");
+                                            EnemiesEnabled.Instance.enemiesEnabled.Remove(esh.shitstuff[i]);
                                         }
                                     }
                                 }
