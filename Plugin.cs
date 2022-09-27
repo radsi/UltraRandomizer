@@ -118,7 +118,7 @@ namespace UltraRandomizer
                             lc.DeathEnd();
                         }
 
-                        if (enemy.TryGetComponent(out V2 v))
+                        if (enemy.TryGetComponent(out V2 v) && SceneManager.GetActiveScene().name == "Level 1-4")
                         {
                             ne.transform.position = new Vector3(0,-19.5f,627);
                         }
