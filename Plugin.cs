@@ -89,20 +89,7 @@ namespace UltraRandomizer
                         enemy.name += "mod";
                         ToDestroyThisFrame.Add(enemy);
 
-                        if (ne.TryGetComponent(out EnemyIdentifier ei) && enemy.TryGetComponent(out EventOnDestroy eod))
-                        {
-                            ei.onDeath.AddListener(eod.stuff.Invoke);
-                        }
-
-                        if (enemy.TryGetComponent(out LeviathanController lc))
-                        {
-                            lc.DeathEnd();
-                        }
-
-                        if (enemy.TryGetComponent(out V2 v) && SceneManager.GetActiveScene().name == "Level 1-4")
-                        {
-                            ne.transform.position = new Vector3(0,-19.5f,627);
-                        }
+                        checkEnemiesStuff(ne, enemy);
                     }
                 }
             }
@@ -153,6 +140,29 @@ namespace UltraRandomizer
                     if (gunControl.noWeapons) { gunControl.YesWeapon(); }
                     gunControl.ForceWeapon(gunControl.allWeapons[weapon]);
                 }
+            }
+        }
+        
+        void checkEnemiesStuff(GameObject ne, GameObject enemy)
+        {
+            if (ne.TryGetComponent(out EnemyIdentifier ei) && enemy.TryGetComponent(out EventOnDestroy eod))
+            {
+                ei.onDeath.AddListener(eod.stuff.Invoke);
+            }
+
+            if (ne.TryGetComponent(out KeepInBounds kib))
+            {
+                Destroy(kib);
+            }
+
+            if (enemy.TryGetComponent(out LeviathanController lc))
+            {
+                lc.DeathEnd();
+            }
+
+            if (enemy.TryGetComponent(out V2 v) && SceneManager.GetActiveScene().name == "Level 1-4")
+            {
+                ne.transform.position = new Vector3(0, -19.5f, 627);
             }
         }
 
