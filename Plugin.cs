@@ -15,6 +15,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using UltraRandomizer.HarmonyPatches;
 using System.Collections;
+using UltraRandomizer.MenuSystem;
 
 namespace UltraRandomizer
 {
@@ -33,6 +34,8 @@ namespace UltraRandomizer
         public List<GameObject> ToDestroyThisFrame = new List<GameObject>();
 
         DifficultiesHandler difficultyHandler;
+
+        public List<int> arr;
 
         public override void OnModLoaded()
         {
@@ -79,7 +82,7 @@ namespace UltraRandomizer
             DestroyOldEnemies();
             Database();
 
-            if (IsCheatActive.Instance.EnemyEnabled == true)
+            if (IsCheatActive.Instance.EnemyEnabled == true && EnemiesEnabled.Instance.enemiesEnabled.Count > 0)
             {
                 GameObject[] enemys = GameObject.FindGameObjectsWithTag("Enemy");
                 for (int i = 0; i < enemys.Length; i++)
@@ -88,8 +91,8 @@ namespace UltraRandomizer
                     {
                         System.Random r = new System.Random();
 
-                        int[] arr = difficultyHandler.GetDifficulty(difficulty - 1).enemies;
-                        int rInt = arr[r.Next(arr.Length)];
+                        EnemiesEnabled ee = EnemiesEnabled.Instance;
+                        int rInt = arr[r.Next(ee.enemiesEnabled.Count)];
 
                         newEnemy = objectsDatabase.enemies[rInt];
 
@@ -98,6 +101,8 @@ namespace UltraRandomizer
 
                         ne.transform.position = enemys[i].transform.position;
                         ne.transform.SetParent(enemys[i].transform.parent);
+
+                        ne.gameObject.name += " mod";
 
                         GameObject enemy = enemys[i];
                         enemy.name += "mod";
@@ -131,12 +136,6 @@ namespace UltraRandomizer
             else if (objectsDatabase == null)
             {
                 objectsDatabase = (SpawnableObjectsDatabase)GetInstanceField(typeof(SpawnMenu), player.transform.GetChild(10).GetChild(21).gameObject.GetComponent<SpawnMenu>(), "objects");
-                foreach (var x in objectsDatabase.enemies)
-                {
-                    x.objectName += " mod";
-                    x.name += " mod";
-                    x.gameObject.name += " mod";
-                }
             }
         }
 
