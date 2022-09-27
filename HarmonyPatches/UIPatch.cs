@@ -82,8 +82,15 @@ namespace UltraRandomizer.HarmonyPatches
                     return field.GetValue(instance);
                 }
 
+
+                bool doneThing = false;
                 void dothing()
                 {
+                    if (doneThing == false)
+                        doneThing = true;
+                    else
+                        return;
+
                     if (player == null)
                     {
                         player = GameObject.Find("Player");
@@ -95,7 +102,7 @@ namespace UltraRandomizer.HarmonyPatches
                         for (int i=0;i<objectsDatabase.enemies.Length;i++)
                         {
                             var x = objectsDatabase.enemies[i];
-                            EnemySetting es = new EnemySetting(x.objectName, i);
+                            EnemySetting es = new EnemySetting(x.objectName, x.objectName+"_id", i);
                             esh.shitstuff.Add(es);
                         }
                     }
@@ -126,7 +133,7 @@ namespace UltraRandomizer.HarmonyPatches
 
                             var id = info.id;
                             Text modText = newInformation.transform.Find("Text").GetComponent<Text>();
-                            modText.text = info.displayName;
+                            modText.text = info.displayname;
                             modText.alignment = TextAnchor.UpperLeft;
                             modText.transform.localPosition = new Vector3(-49.2f, -7.5f, 0f);
                             modText.transform.localScale = new Vector3(0.66764f, 0.66764f, 0.66764f);
@@ -147,6 +154,7 @@ namespace UltraRandomizer.HarmonyPatches
                                     {
                                         if (esh.shitstuff[i].id == id)
                                         {
+                                            Debug.Log("added " + id + " to enabled enemies");
                                             EnemiesEnabled.Instance.enemiesEnabled.Add(esh.shitstuff[i]);
                                         }
                                     }

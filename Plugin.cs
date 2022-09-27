@@ -53,6 +53,8 @@ namespace UltraRandomizer
 
         private void Update()
         {
+            EnemiesEnabled ee = EnemiesEnabled.Instance;
+
             DestroyOldEnemies();
             Database();
 
@@ -67,15 +69,11 @@ namespace UltraRandomizer
                 {
                     if (enemys[i].transform.childCount > 3 && !enemys[i].name.Contains("mod"))
                     {
-                        System.Random r = new System.Random();
-
-                        for (int x = 0; i < ee.enemiesEnabled.Count; x++)
-                        {
-                            arr.Add(ee.enemiesEnabled.ToArray()[i].id);
-                        }
-    
+                        System.Random r = new System.Random();    
                         int rInt = arr[r.Next(ee.enemiesEnabled.Count)];
-                        newEnemy = objectsDatabase.enemies[rInt];
+
+                        int index = ee.enemiesEnabled[rInt].spawnarmindex;
+                        SpawnableObject newEnemy = objectsDatabase.enemies[index];
 
                         GameObject ne = Instantiate(newEnemy.gameObject);
                         EnemyIdentifier neid = ne.GetComponent<EnemyIdentifier>();

@@ -6,14 +6,16 @@ namespace UltraRandomizer.MenuSystem
 {
     public class EnemySetting
     {
-        public int id;
-        public string displayName = "oi cuzz";
+        public string displayname = "oi cuzz";
         public bool enabled = false;
+        public int spawnarmindex;
+        public string id;
 
-        public EnemySetting(string displayname, int id)
+        public EnemySetting(string displayname, string id,int spawnarmindex)
         {
             this.id = id;
-            this.displayName = displayname;
+            this.displayname = displayname;
+            this.spawnarmindex = spawnarmindex;
         }
     }
 }
