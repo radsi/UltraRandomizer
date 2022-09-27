@@ -1,21 +1,12 @@
-using BepInEx;
-using BepInEx.Configuration;
 using HarmonyLib;
 using System;
-using System.Linq;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using UMM;
-using UMM.HarmonyPatches;
 using System.IO;
-using Newtonsoft.Json;
-using System.Runtime.InteropServices;
-using System.Text;
 using UltraRandomizer.HarmonyPatches;
-using System.Collections;
-using UltraRandomizer.MenuSystem;
 
 namespace UltraRandomizer
 {
@@ -27,15 +18,14 @@ namespace UltraRandomizer
 
         SpawnableObjectsDatabase objectsDatabase;
         SpawnableObject newEnemy;
-
-        int difficulty;
+        
         int weaponInterval;
 
         public List<GameObject> ToDestroyThisFrame = new List<GameObject>();
 
-        DifficultiesHandler difficultyHandler;
-
         public List<int> arr;
+        
+        EnemiesEnabled ee = EnemiesEnabled.Instance;
 
         public override void OnModLoaded()
         {
@@ -53,26 +43,10 @@ namespace UltraRandomizer
                 {
                     if (textLine.Contains("="))
                     {
-                        if (textLine.Contains("Difficulty"))
-                        {
-                            difficulty = int.Parse(textLine.Split('=')[1]);
-                        }
-                        else
-                        {
-                            weaponInterval = int.Parse(textLine.Split('=')[1]);
-                        }
+                        weaponInterval = int.Parse(textLine.Split('=')[1]);
                     }
                 }
             }
-
-            difficultyHandler = new DifficultiesHandler();
-
-            difficultyHandler.New(new int[] { 0, 1, 2, 3, 21 });
-            difficultyHandler.New(new int[] { 0, 1, 2, 3, 4, 9, 14, 21 });
-            difficultyHandler.New(new int[] { 0, 1, 2, 3, 4, 9, 14, 15, 21 });
-            difficultyHandler.New(new int[] { 0, 1, 2, 3, 4, 9, 14, 15, 16, 19, 21, 22 });
-            difficultyHandler.New(new int[] { 0, 1, 2, 3, 4, 5, 6, 9, 14, 15, 16, 18, 19, 21, 22 });
-            difficultyHandler.New(new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 24, 25 });
 
             InvokeRepeating("ChangeWeapon", 0, weaponInterval);
         }
@@ -85,15 +59,22 @@ namespace UltraRandomizer
             if (IsCheatActive.Instance.EnemyEnabled == true && EnemiesEnabled.Instance.enemiesEnabled.Count > 0)
             {
                 GameObject[] enemys = GameObject.FindGameObjectsWithTag("Enemy");
+
+                if (enemys.Length < 0)
+                    return;
+                
                 for (int i = 0; i < enemys.Length; i++)
                 {
                     if (enemys[i].transform.childCount > 3 && !enemys[i].name.Contains("mod"))
                     {
                         System.Random r = new System.Random();
 
-                        EnemiesEnabled ee = EnemiesEnabled.Instance;
+                        for (int x = 0; i < ee.enemiesEnabled.Count; x++)
+                        {
+                            arr.Add(ee.enemiesEnabled.ToArray()[i].id);
+                        }
+    
                         int rInt = arr[r.Next(ee.enemiesEnabled.Count)];
-
                         newEnemy = objectsDatabase.enemies[rInt];
 
                         GameObject ne = Instantiate(newEnemy.gameObject);
