@@ -71,7 +71,7 @@ namespace UltraRandomizer
                 
                 for (int i = 0; i < enemys.Length; i++)
                 {
-                    if (enemys[i].transform.childCount > 3 && !enemys[i].name.Contains("mod"))
+                    if (!enemys[i].name.Contains("mod"))
                     {
                         System.Random r = new System.Random();
                         int rInt = ee.enemiesEnabled[r.Next(ee.enemiesEnabled.Count)].spawnarmindex;

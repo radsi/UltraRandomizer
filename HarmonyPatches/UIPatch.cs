@@ -85,6 +85,7 @@ namespace UltraRandomizer.HarmonyPatches
                 void dothing()
                 {
                     EnemySettingHandler esh = EnemySettingHandler.Instance;
+                    esh.shitstuff.Clear();
                     if (doneThing == false)
                         doneThing = true;
                     else
