@@ -77,19 +77,20 @@ namespace UltraRandomizer
                         int rInt = ee.enemiesEnabled[r.Next(ee.enemiesEnabled.Count)].spawnarmindex;
                         SpawnableObject newEnemy = objectsDatabase.enemies[rInt];
 
+                        GameObject enemy = enemys[i];
                         GameObject ne = Instantiate(newEnemy.gameObject);
                         EnemyIdentifier neid = ne.GetComponent<EnemyIdentifier>();
 
+                        checkEnemiesStuff(ne, enemy);
+
                         ne.transform.position = enemys[i].transform.position;
                         ne.transform.SetParent(enemys[i].transform.parent);
-
                         ne.gameObject.name += " mod";
 
-                        GameObject enemy = enemys[i];
                         enemy.name += "mod";
                         ToDestroyThisFrame.Add(enemy);
 
-                        checkEnemiesStuff(ne, enemy);
+                        EnemyPositionFix(ne,enemy);
                     }
                 }
             }
@@ -159,7 +160,10 @@ namespace UltraRandomizer
             {
                 lc.DeathEnd();
             }
+        }
 
+        void EnemyPositionFix(GameObject ne, GameObject enemy)
+        {
             if (enemy.TryGetComponent(out V2 v) && SceneManager.GetActiveScene().name == "Level 1-4")
             {
                 ne.transform.position = new Vector3(0, -19.5f, 627);
