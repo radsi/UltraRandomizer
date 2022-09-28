@@ -11,7 +11,7 @@ using UltraRandomizer.MenuSystem;
 
 namespace UltraRandomizer
 {
-    [UKPlugin("UltraRandomizer", "Enemy Randomizer for ULTRAKILL", "1.0.0", false, false)]
+    [UKPlugin("UltraRandomizer", "Enemy Randomizer for ULTRAKILL", "1.4.0", false, false)]
 
     public class UltraRandomizer : UKMod
     {

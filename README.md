@@ -11,6 +11,6 @@ You must have cheats enabled and active it in the cheat menu
 ## Configuration
 > we will have more advanced configuration in the future.
 
-To change configuration go to BepInEx/config/radsi.ultrarandomizer.cfg or use BepInEx ConfigManager
+To change configuration go to BepInEx/config/radsi.ultrarandomizer.cfg
 
 ![image](https://github.com/radsi/Ultrakill-Randomizer/blob/main/image.PNG)
