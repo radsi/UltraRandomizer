@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 using HarmonyLib;
@@ -166,10 +165,12 @@ namespace UltraRandomizer.HarmonyPatches
                                         if (esh.shitstuff[i].id == id)
                                         {
                                             Debug.Log("removed " + id + " from enabled enemies");
-                                            EnemiesEnabled.Instance.enemiesEnabled.Remove(esh.shitstuff[i]);
+                                            esh.shitstuff[i].enabled = false;
                                         }
                                     }
                                 }
+
+                                new SaveSystem().Save();
                             });
                             EventTrigger trigger = toggle.gameObject.AddComponent<EventTrigger>();
                             EventTrigger.Entry hoverEntry = new EventTrigger.Entry();

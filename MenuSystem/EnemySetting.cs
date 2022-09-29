@@ -11,7 +11,7 @@ namespace UltraRandomizer.MenuSystem
         public int spawnarmindex;
         public string id;
 
-        public EnemySetting(string displayname, string id,int spawnarmindex)
+        public EnemySetting(string displayname, string id, int spawnarmindex)
         {
             this.id = id;
             this.displayname = displayname;

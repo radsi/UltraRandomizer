@@ -26,6 +26,8 @@ namespace UltraRandomizer
         
         EnemiesEnabled ee = EnemiesEnabled.Instance;
 
+        SaveSystem saveSystem = new();
+
         public override void OnModLoaded()
         {
             new Harmony("UltraRandomizer").PatchAll();
@@ -46,6 +48,9 @@ namespace UltraRandomizer
                     }
                 }
             }
+
+            saveSystem.CheckFiles();
+            saveSystem.Apply();
 
             InvokeRepeating("ChangeWeapon", 0, weaponInterval);
         }
