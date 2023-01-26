@@ -17,8 +17,6 @@ namespace UltraRandomizer
         GameObject player;
 
         SpawnableObjectsDatabase objectsDatabase;
-        
-        int weaponInterval;
 
         public List<GameObject> ToDestroyThisFrame = new List<GameObject>();
 
