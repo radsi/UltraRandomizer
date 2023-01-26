@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using UMM;
-using System.IO;
 using UltraRandomizer.HarmonyPatches;
 using UltraRandomizer.MenuSystem;
 
@@ -18,44 +17,15 @@ namespace UltraRandomizer
         GameObject player;
 
         SpawnableObjectsDatabase objectsDatabase;
-        SpawnableObject newEnemy;
         
         int weaponInterval;
 
         public List<GameObject> ToDestroyThisFrame = new List<GameObject>();
-        
-        EnemiesEnabled ee = EnemiesEnabled.Instance;
-
-        SaveSystem saveSystem = new();
 
         public override void OnModLoaded()
         {
             new Harmony("UltraRandomizer").PatchAll();
-            var configFilePath = AppDomain.CurrentDomain.BaseDirectory + @"\BepInEx\config\radsi.ultrarandomizer.cfg";
-
-            if (!File.Exists(configFilePath))
-            {
-                File.WriteAllText(configFilePath, "## Settings file was created by plugin UltraRandomizer v1.0.0\n## Plugin GUID: radsi.ultrarandomizer\n\n[Enemys Randomizer]\n\n## The difficulty of the enemies that can appear (1-6)\n# Setting type: Int32\n# Default value: 1\n# Acceptable value range: From 1 to 6\nDifficulty = 1\n\n[Weapon Randomizer]\n\n## The time interval in seconds between each weapon\n# Setting type: Int32\n# Default value: 5\n# Acceptable value range: From 5 to 600\nInterval = 5");
-            }
-            else
-            {
-                string[] text = File.ReadAllLines(configFilePath);
-                foreach (var textLine in text)
-                {
-                    if (textLine.Contains("="))
-                    {
-                        weaponInterval = int.Parse(textLine.Split('=')[1]);
-                    }
-                }
-            }
-
-            saveSystem.CheckFiles();
-            saveSystem.Apply();
-
-            InvokeRepeating("ChangeWeapon", 0, weaponInterval);
         }
-
-        private GameObject hackywackyway;
 
         private void Update()
         {
@@ -76,7 +46,7 @@ namespace UltraRandomizer
                 
                 for (int i = 0; i < enemys.Length; i++)
                 {
-                    if (!enemys[i].name.Contains("mod"))
+                    if (enemys[i].transform.childCount > 3 && !enemys[i].name.Contains("mod"))
                     {
                         System.Random r = new System.Random();
                         int rInt = ee.enemiesEnabled[r.Next(ee.enemiesEnabled.Count)].spawnarmindex;
@@ -84,7 +54,6 @@ namespace UltraRandomizer
 
                         GameObject enemy = enemys[i];
                         GameObject ne = Instantiate(newEnemy.gameObject);
-                        EnemyIdentifier neid = ne.GetComponent<EnemyIdentifier>();
 
                         checkEnemiesStuff(ne, enemy);
 
@@ -125,27 +94,6 @@ namespace UltraRandomizer
                 }
                 else
                     ToDestroyThisFrame.RemoveAt(i);
-            }
-        }
-
-        void ChangeWeapon()
-        {
-            if (IsCheatActive.Instance.WeaponEnabled == true)
-            {
-                GunControl gunControl = player.GetComponentInChildren<GunControl>();
-
-                System.Random r = new System.Random();
-                var weapon = r.Next(gunControl.allWeapons.Count);
-
-                if (gunControl.allWeapons[weapon] == null)
-                {
-                    gunControl.NoWeapon();
-                }
-                else
-                {
-                    if (gunControl.noWeapons) { gunControl.YesWeapon(); }
-                    gunControl.ForceWeapon(gunControl.allWeapons[weapon]);
-                }
             }
         }
         
